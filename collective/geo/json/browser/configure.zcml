@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.geo.json">
+
+
+  <include package="Products.CMFCore" file="permissions.zcml" />
+
+  <browser:page
+      for="collective.geo.geographer.interfaces.IGeoreferenceable"
+      name="geo-json.json"
+      class=".jsonview.JsonDocument"
+      layer = "..interfaces.IGeoJsonLayer"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.CMFCore.interfaces.IFolderish"
+      name="geo-json.json"
+      class=".jsonview.JsonFolderDocument"
+      layer = "..interfaces.IGeoJsonLayer"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.ATContentTypes.interface.IATTopic"
+      name="geo-json.json"
+      layer = "..interfaces.IGeoJsonLayer"
+      class=".jsonview.JsonTopicDocument"
+      permission="zope2.View"
+      />
+
+
+
+</configure>

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<layers>
+    <layer name="collective.geo.json"
+           interface="collective.geo.json.interfaces.IGeoJsonLayer" />
+</layers>
