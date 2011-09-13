@@ -26,6 +26,7 @@ setup(name='collective.geo.json',
           'setuptools',
           # -*- Extra requirements: -*-
           'collective.geo.geographer',
+          'collective.geo.settings',
           'geojson',
       ],
       entry_points="""

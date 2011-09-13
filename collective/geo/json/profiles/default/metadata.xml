@@ -3,5 +3,6 @@
   <version>1000</version>
   <dependencies>
     <dependency>profile-collective.geo.geographer:default</dependency>
+    <dependency>profile-collective.geo.settings:default</dependency>
   </dependencies>
 </metadata>
