@@ -25,17 +25,7 @@ class JsonBaseDocument(BrowserView):
         self.defaultstyles = registry.forInterface(IGeoFeatureStyle)
 
     def _get_style(self, geo_type):
-        style= {'color': None,
-                'width': None,
-                'image': None}
-        if self.defaultstyles:
-            if geo_type['type'].endswith('Polygon'):
-                style['color'] = self.defaultstyles.polygoncolor
-            elif geo_type['type'].endswith('LineString'):
-                style['color'] = self.defaultstyles.linecolor
-                style['width'] = self.defaultstyles.linewidth
-            elif geo_type['type'].endswith('Point'):
-                style['image']= self.defaultstyles.marker_image
+        style= {}
         if self.styles:
             if self.styles['use_custom_styles']:
                 if geo_type['type'].endswith('Polygon'):
@@ -46,6 +36,15 @@ class JsonBaseDocument(BrowserView):
                 elif geo_type['type'].endswith('Point'):
                     style['image']= self.styles['marker_image']
         return style
+        #elif self.defaultstyles:
+            #if geo_type['type'].endswith('Polygon'):
+                #style['color'] = self.defaultstyles.polygoncolor
+            #elif geo_type['type'].endswith('LineString'):
+                #style['color'] = self.defaultstyles.linecolor
+                #style['width'] = self.defaultstyles.linewidth
+            #elif geo_type['type'].endswith('Point'):
+                #style['image']= self.defaultstyles.marker_image
+        #return style
 
     @property
     def portal_catalog(self):
@@ -64,15 +63,18 @@ class JsonDocument(JsonBaseDocument):
             self.styles = IGeoFeatureStyle(self.context).geostyles
         except:
             self.styles = None
+        classes = geometry.geo['type'].lower() + ' '
+        classes += self.context.getPhysicalPath()[-2].replace('.','-') #+ ' '
         json_result = [
                 geojson.Feature(
-                    id=self.context.id,
+                    id=self.context.id.replace('.','-'),
                     geometry=geometry.geo,
                     properties={
                         "title": self.context.Title(),
                         "description": self.context.Description(),
                         "style": self._get_style(geometry.geo),
-                        "url": self.context.absolute_url()
+                        "url": self.context.absolute_url(),
+                        "classes" : classes,
                         })]
         return geojson.dumps(geojson.FeatureCollection(json_result))
 
@@ -88,7 +90,7 @@ class JsonFolderDocument(JsonBaseDocument):
                 if geom['coordinates']:
                     json_result.append(
                          geojson.Feature(
-                            id=brain.id,
+                            id=brain.id.replace('.','-'),
                             geometry=asShape(geom),
                             properties={
                                 "title": brain.Title,
@@ -111,7 +113,7 @@ class JsonTopicDocument(JsonBaseDocument):
                 if geom['coordinates']:
                     json_result.append(
                          geojson.Feature(
-                            id=brain.id,
+                            id=brain.id.replace('.','-'),
                             geometry=asShape(geom),
                             properties={
                                 "title": brain.Title,
