@@ -6,17 +6,22 @@ version = '0.1'
 setup(name='collective.geo.json',
       version=version,
       description="GeoJson output for collective.geo",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Framework :: Plone",
         "Programming Language :: Python",
+        "Framework :: Plone",
+        "Framework :: Plone :: 4.0",
+        "Framework :: Plone :: 4.1",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
+        "Topic :: Scientific/Engineering :: GIS",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Christian Ledermann',
+      author_email='christian.ledermann@gmail.com',
+      url='http://plone.org/products/collective.geo.json/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', 'collective.geo'],
