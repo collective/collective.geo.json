@@ -2,8 +2,11 @@ from zope.interface import implements, Interface
 from zope.component import getUtility
 
 from Products.Five import BrowserView
+try:
+    from shapely.geometry import asShape
+except:
+    from pygeoif.geometry import as_shape as asShape
 
-from shapely.geometry import asShape
 import geojson
 
 from Products.CMFCore.utils import getToolByName
@@ -37,14 +40,22 @@ class JsonBaseDocument(BrowserView):
 
     def normalize_color(self, color):
         if color:
+            for c in color:
+                if c.upper() not in '#0123456789ABCDEF':
+                    raise ValueError
             if color.startswith('#'):
                 color = color[1:]
-            if len(color)==3 or len(color)==4:
+            if len(color)==3:
+                color =''.join([b*2 for b in color]) +'3c'
+            elif len(color)==4:
                 color =''.join([b*2 for b in color])
-            if len(color)==6:
+            elif len(color)==6:
                 color = color +'3c'
-            if len(color)==8:
-                return color
+            elif len(color)==8:
+                pass
+            else:
+                raise ValueError
+            return color
         return 'AABBCCDD'
 
     def _get_style(self, geo_type):
