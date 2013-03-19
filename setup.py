@@ -5,7 +5,7 @@ version = '0.1'
 
 setup(name='collective.geo.json',
       version=version,
-      description="GeoJson output for collective.geo",
+      description="Collective Geo GeoJson output",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
