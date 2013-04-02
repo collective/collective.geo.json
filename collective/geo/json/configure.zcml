@@ -14,7 +14,7 @@
       name="default"
       title="Collective Geo JSON"
       directory="profiles/default"
-      description="GeoJson Output for collective.geo"
+      description="GeoJson output for collective.geo"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

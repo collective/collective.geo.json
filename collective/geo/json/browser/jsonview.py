@@ -10,11 +10,19 @@ except:
 import geojson
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.Expression import Expression, getExprContext
 
 from plone.registry.interfaces import IRegistry
 
 from collective.geo.geographer.interfaces import IGeoreferenced
 from collective.geo.settings.interfaces import IGeoFeatureStyle
+
+def get_marker_image(context, marker_img):
+    try:
+        marker_img = Expression(str(marker_img))(getExprContext(context))
+    except:
+        marker_img = ''
+    return marker_img
 
 
 class IJsonDocument(Interface):
@@ -40,11 +48,9 @@ class JsonBaseDocument(BrowserView):
 
     def normalize_color(self, color):
         if color:
-            for c in color:
-                if c.upper() not in '#0123456789ABCDEF':
-                    raise ValueError
             if color.startswith('#'):
                 color = color[1:]
+            tc = int(color, 16)
             if len(color)==3:
                 color =''.join([b*2 for b in color]) +'3c'
             elif len(color)==4:
@@ -54,7 +60,7 @@ class JsonBaseDocument(BrowserView):
             elif len(color)==8:
                 pass
             else:
-                raise ValueError
+                raise ValueError, "input #%s is not in #RRGGBB[AA] format" % color
             return color
         return 'AABBCCDD'
 
@@ -72,13 +78,16 @@ class JsonBaseDocument(BrowserView):
                     style['stroke'] = stroke
                     style['width'] = self.styles['linewidth']
                 elif geo_type['type'].endswith('Point'):
-                    img = self.styles['marker_image']
+                    self.styles['marker_image']
                     style['fill'] = fill
                     style['stroke'] =stroke
                     style['width'] = self.styles['linewidth']
-                    if img.startswith('string:${portal_url}'):
-                        img = self.portal.absolute_url() + img[20:]
-                    style['image']= img
+                    if self.styles.get('marker_image', None):
+                        img = get_marker_image( self.context,
+                                self.styles['marker_image'])
+                        style['image']= img
+                    else:
+                        style['image'] = None
         return style
 
     @property
