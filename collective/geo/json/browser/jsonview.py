@@ -90,7 +90,10 @@ class JsonDocument(JsonBaseDocument):
             self.styles = IGeoFeatureStyle(self.context).geostyles
         except:
             self.styles = None
-        classes = geometry.geo['type'].lower() + ' '
+        if geometry.geo['type']:
+            classes = geometry.geo['type'].lower() + ' '
+        else:
+            classes = ''
         classes += self.context.getPhysicalPath()[-2].replace('.','-') #+ ' '
         json_result = [
                 geojson.Feature(
@@ -118,12 +121,16 @@ class JsonFolderDocument(JsonBaseDocument):
                 geom = { 'type': brain.zgeo_geometry['type'],
                             'coordinates': brain.zgeo_geometry['coordinates']}
                 if geom['coordinates']:
-                    classes = brain.zgeo_geometry['type'].lower() + ' '
+                    if geometry.geo['type']:
+                        classes = geometry.geo['type'].lower() + ' '
+                    else:
+                        classes = ''
                     classes += brain.getPath().split('/')[-2].replace('.','-')
                     json_result.append(
                          geojson.Feature(
                             id=brain.id.replace('.','-'),
                             geometry=asShape(geom),
+                            style= self._get_style(geom),
                             properties={
                                 "title": brain.Title,
                                 "description": brain.Description,
