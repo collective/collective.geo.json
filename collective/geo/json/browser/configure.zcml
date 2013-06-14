@@ -6,6 +6,7 @@
 
 
   <include package="Products.CMFCore" file="permissions.zcml" />
+  <include package="z3c.caching" file="meta.zcml" />
 
   <browser:page
       for="collective.geo.geographer.interfaces.IGeoreferenceable"
@@ -15,6 +16,12 @@
       permission="zope2.View"
       />
 
+  <cache:ruleset
+      for=".jsonview.JsonDocument"
+      ruleset="plone.content.itemView"
+      />
+
+
   <browser:page
       for="Products.CMFCore.interfaces.IFolderish"
       name="geo-json.json"
@@ -22,6 +29,12 @@
       layer = "..interfaces.IGeoJsonLayer"
       permission="zope2.View"
       />
+
+   <cache:ruleset
+      for=".jsonview.JsonFolderDocument"
+      ruleset="plone.content.folderView"
+      />
+
 
   <browser:page
       for="Products.ATContentTypes.interface.IATTopic"
@@ -31,6 +44,9 @@
       permission="zope2.View"
       />
 
-
+  <cache:ruleset
+      for=".jsonview.JsonTopicDocument"
+      ruleset="plone.content.folderView"
+      />
 
 </configure>
