@@ -2,6 +2,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cache="http://namespaces.zope.org/cache"
     i18n_domain="collective.geo.json">
 
 
@@ -21,7 +22,6 @@
       ruleset="plone.content.itemView"
       />
 
-
   <browser:page
       for="Products.CMFCore.interfaces.IFolderish"
       name="geo-json.json"
@@ -35,7 +35,15 @@
       ruleset="plone.content.folderView"
       />
 
+  <browser:page
+      for="Products.ATContentTypes.interface.IATFolder"
+      name="geo-json.json"
+      layer = "..interfaces.IGeoJsonLayer"
+      class=".jsonview.JsonFolderDocument"
+      permission="zope2.View"
+      />
 
+ 
   <browser:page
       for="Products.ATContentTypes.interface.IATTopic"
       name="geo-json.json"
@@ -48,5 +56,19 @@
       for=".jsonview.JsonTopicDocument"
       ruleset="plone.content.folderView"
       />
+
+  <browser:page
+      for="plone.app.collection.interfaces.ICollection"
+      name="geo-json.json"
+      layer = "..interfaces.IGeoJsonLayer"
+      class=".jsonview.JsonCollectionDocument"
+      permission="zope2.View"
+      />
+
+  <cache:ruleset
+      for=".jsonview.JsonCollectionDocument"
+      ruleset="plone.content.folderView"
+      />
+
 
 </configure>
