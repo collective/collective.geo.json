@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 import os
 
@@ -34,6 +35,7 @@ setup(name='collective.geo.json',
           'collective.geo.geographer',
           'collective.geo.settings',
           'geojson',
+          'pygeoif'
       ],
       entry_points="""
       # -*- Entry points: -*-
