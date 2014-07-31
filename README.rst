@@ -1,7 +1,7 @@
 Introduction
 ============
 
-Some web mapping clients like leaflet or polymaps only accept json as an
+Some web mapping clients like Leaflet_ or Polymaps_ accept json as an
 input format. This product produces it.
 
 It does not have any user interface, it just provides a GeoJson_ view
