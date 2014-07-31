@@ -1,7 +1,16 @@
 Changelog
 =========
 
-0.1dev (unreleased)
+0.2dev (unreleased)
+-------------------
+
+- Add plone.app.collection provider
+
+- Add ATFolder provider (not only folder rich)
+
+
+
+0.1 (2012/02/24)
 -------------------
 
 - Initial release
