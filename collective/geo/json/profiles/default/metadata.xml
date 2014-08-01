@@ -4,5 +4,6 @@
   <dependencies>
     <dependency>profile-collective.geo.geographer:default</dependency>
     <dependency>profile-collective.geo.settings:default</dependency>
+    <dependency>profile-collective.geo.contentlocations:default</dependency>
   </dependencies>
 </metadata>

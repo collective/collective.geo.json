@@ -19,6 +19,9 @@
       />
 
 
+  <include package="collective.geo.geographer" />
+  <include package="collective.geo.settings" />
+  <include package="collective.geo.contentlocations" />
 
 
 </configure>

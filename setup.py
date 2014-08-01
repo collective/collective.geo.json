@@ -34,9 +34,16 @@ setup(name='collective.geo.json',
           # -*- Extra requirements: -*-
           'collective.geo.geographer',
           'collective.geo.settings',
+          'collective.geo.contentlocations',
           'geojson',
-          'pygeoif'
+          'pygeoif',
+          'plone.api'
       ],
+      extras_require={
+          'test': [
+              'plone.app.testing',
+          ]
+      },
       entry_points="""
       # -*- Entry points: -*-
 
