@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from zope.interface import implements, Interface
 from zope.component import getUtility
+from zope.tales.tales import CompilerError
 
 from Products.Five import BrowserView
 try:
@@ -17,13 +18,16 @@ from plone.registry.interfaces import IRegistry
 
 from collective.geo.geographer.interfaces import IGeoreferenced
 from collective.geo.settings.interfaces import IGeoFeatureStyle
+from collective.geo.mapwidget import utils
+from collective.geo.json import logger
 
 
 def get_marker_image(context, marker_img):
     try:
         marker_img = Expression(str(marker_img))(getExprContext(context))
-    except:
-        marker_img = ''
+    except CompilerError:
+        logger.info("Could not parse expression {}".format(marker_img))
+        marker_img = '{}/{}'.format(context.portal_url(), marker_img)
     return marker_img
 
 
@@ -105,7 +109,7 @@ class JsonDocument(JsonBaseDocument):
         except:
             return '{}'
         try:
-            self.styles = IGeoFeatureStyle(self.context).geostyles
+            self.styles = utils.get_feature_styles(self.context)
         except:
             self.styles = None
         if geometry.geo['type']:
