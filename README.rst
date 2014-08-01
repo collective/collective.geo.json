@@ -20,3 +20,10 @@ Links
 .. _Polymaps: http://polymaps.org/
 .. _Leaflet: http://leafletjs.com/
 
+Tests
+=====
+
+This package is tested using Travis CI. The current status is :
+
+.. image:: https://travis-ci.org/collective/collective.geo.json.png
+    :target: http://travis-ci.org/collective/collective.geo.json
