@@ -46,4 +46,4 @@ class TestCollection(unittest.TestCase):
         )
         geojson = geojson_view.__of__(self.portal)()
         self.failUnless(geojson)
-        self.assertTrue('"coordinates": [5.683, 50.643]}' and '"coordinates": [5.583, 50.633]}' in geojson in geojson)
+        self.assertTrue('"coordinates": [5.683, 50.643]}' and '"coordinates": [5.583, 50.633]}' in geojson)
