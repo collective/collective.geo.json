@@ -9,7 +9,6 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import alsoProvides
-from zope.schema import getFields
 import unittest2 as unittest
 
 
