@@ -133,14 +133,14 @@ class JsonDocument(JsonBaseDocument):
 
 class JsonFolderDocument(JsonBaseDocument):
 
-    def get_brain(self):
+    def get_brains(self):
         querydict = {}
         querydict['path'] = {'query': '/'.join(self.context.getPhysicalPath())}
         return self.portal_catalog(querydict)
 
     def get_json(self):
         json_result = []
-        for brain in self.get_brain():
+        for brain in self.get_brains():
             if brain.zgeo_geometry:
                 self.styles = brain.collective_geo_styles
                 geom = {'type': brain.zgeo_geometry['type'],
@@ -175,11 +175,11 @@ class JsonFolderDocument(JsonBaseDocument):
 
 class JsonTopicDocument(JsonFolderDocument):
 
-    def get_brain(self):
+    def get_brains(self):
         return self.context.queryCatalog()
 
 
 class JsonCollectionDocument(JsonTopicDocument):
 
-    def get_brain(self):
+    def get_brains(self):
         return self.context.queryCatalog()
