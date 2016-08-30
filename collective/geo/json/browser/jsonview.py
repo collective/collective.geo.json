@@ -57,9 +57,9 @@ class JsonBaseDocument(BrowserView):
                 color = color[1:]
             tc = int(color, 16)
             if len(color) == 3:
-                color = ''.join([b*2 for b in color]) + '3c'
+                color = ''.join([b * 2 for b in color]) + '3c'
             elif len(color) == 4:
-                color = ''.join([b*2 for b in color])
+                color = ''.join([b * 2 for b in color])
             elif len(color) == 6:
                 color = color + '3c'
             elif len(color) == 8:
@@ -127,7 +127,7 @@ class JsonDocument(JsonBaseDocument):
                     "style": self._get_style(geometry.geo),
                     "url": self.context.absolute_url(),
                     "classes": classes,
-                    })]
+                })]
         return geojson.dumps(geojson.FeatureCollection(json_result))
 
 
@@ -138,7 +138,7 @@ class JsonFolderDocument(JsonBaseDocument):
         querydict['path'] = {'query': '/'.join(self.context.getPhysicalPath())}
         return self.portal_catalog(querydict)
 
-    def __call__(self):
+    def get_json(self):
         json_result = []
         for brain in self.get_brain():
             if brain.zgeo_geometry:
@@ -162,12 +162,15 @@ class JsonFolderDocument(JsonBaseDocument):
                                 "style": self._get_style(geom),
                                 "url": brain.getURL(),
                                 "classes": classes,
-                                }))
-        self.request.RESPONSE.setHeader('Content-Type',
-                                        'application/json; charset=utf-8')
+                            }))
         feature_collection = geojson.FeatureCollection(json_result)
         feature_collection.update({'title': self.context.title})
         return geojson.dumps(feature_collection)
+
+    def __call__(self):
+        self.request.RESPONSE.setHeader('Content-Type',
+                                        'application/json; charset=utf-8')
+        return self.get_json()
 
 
 class JsonTopicDocument(JsonFolderDocument):

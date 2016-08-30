@@ -13,7 +13,7 @@
       for="collective.geo.geographer.interfaces.IGeoreferenceable"
       name="geo-json.json"
       class=".jsonview.JsonDocument"
-      layer = "..interfaces.IGeoJsonLayer"
+      layer="..interfaces.IGeoJsonLayer"
       permission="zope2.View"
       />
 
@@ -26,7 +26,7 @@
       for="Products.CMFCore.interfaces.IFolderish"
       name="geo-json.json"
       class=".jsonview.JsonFolderDocument"
-      layer = "..interfaces.IGeoJsonLayer"
+      layer="..interfaces.IGeoJsonLayer"
       permission="zope2.View"
       />
 
@@ -38,16 +38,16 @@
   <browser:page
       for="Products.ATContentTypes.interface.IATFolder"
       name="geo-json.json"
-      layer = "..interfaces.IGeoJsonLayer"
+      layer="..interfaces.IGeoJsonLayer"
       class=".jsonview.JsonFolderDocument"
       permission="zope2.View"
       />
 
- 
+
   <browser:page
       for="Products.ATContentTypes.interface.IATTopic"
       name="geo-json.json"
-      layer = "..interfaces.IGeoJsonLayer"
+      layer="..interfaces.IGeoJsonLayer"
       class=".jsonview.JsonTopicDocument"
       permission="zope2.View"
       />
@@ -60,7 +60,7 @@
   <browser:page
       for="plone.app.collection.interfaces.ICollection"
       name="geo-json.json"
-      layer = "..interfaces.IGeoJsonLayer"
+      layer="..interfaces.IGeoJsonLayer"
       class=".jsonview.JsonCollectionDocument"
       permission="zope2.View"
       />

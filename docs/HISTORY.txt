@@ -4,7 +4,9 @@ Changelog
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Update way to get json, do not construct json into __call__ mehtod,
+  so you can create/use json into other products without modify request.
+  [bsuttor]
 
 
 0.2 (2014-08-01)
@@ -16,7 +18,7 @@ Changelog
 - Add ATFolder provider (not only folder rich)
   [bsuttor]
 
-- Add collective.geo.contentlocations dependency 
+- Add collective.geo.contentlocations dependency
   because collective_geo_styles catalog index is required.
   [bsuttor]
 
