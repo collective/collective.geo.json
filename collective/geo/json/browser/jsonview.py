@@ -72,6 +72,8 @@ class JsonBaseDocument(BrowserView):
     def _get_style(self, geo_type):
         style = {}
         if self.styles:
+            if not geo_type.get('type', None):
+                return style
             fill = self.normalize_color(self.styles['polygoncolor'])
             stroke = self.normalize_color(self.styles['linecolor'])
             if geo_type['type'].endswith('Polygon'):
