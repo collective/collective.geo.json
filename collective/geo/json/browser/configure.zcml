@@ -3,6 +3,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:cache="http://namespaces.zope.org/cache"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.geo.json">
 
 
@@ -43,7 +44,6 @@
       permission="zope2.View"
       />
 
-
   <browser:page
       for="Products.ATContentTypes.interface.IATTopic"
       name="geo-json.json"
@@ -51,6 +51,24 @@
       class=".jsonview.JsonTopicDocument"
       permission="zope2.View"
       />
+
+  <configure zcml:condition="installed plone.app.contenttypes">
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFolder"
+        name="geo-json.json"
+        layer="..interfaces.IGeoJsonLayer"
+        class=".jsonview.JsonFolderDocument"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="plone.app.contenttypes.interfaces.ICollection"
+        name="geo-json.json"
+        layer="..interfaces.IGeoJsonLayer"
+        class=".jsonview.JsonCollectionDocument"
+        permission="zope2.View"
+        />
+  </configure>
 
   <cache:ruleset
       for=".jsonview.JsonTopicDocument"

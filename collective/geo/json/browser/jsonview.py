@@ -26,7 +26,7 @@ def get_marker_image(context, marker_img):
     try:
         marker_img = Expression(str(marker_img))(getExprContext(context))
     except CompilerError:
-        logger.info("Could not parse expression {}".format(marker_img))
+        logger.info('Could not parse expression {}'.format(marker_img))
         marker_img = '{}/{}'.format(context.portal_url(), marker_img)
     return marker_img
 
@@ -65,7 +65,7 @@ class JsonBaseDocument(BrowserView):
             elif len(color) == 8:
                 pass
             else:
-                raise ValueError, "input #%s is not in #RRGGBB[AA] format" % color
+                raise ValueError, 'input #%s is not in #RRGGBB[AA] format' % color
             return color
         return 'AABBCCDD'
 
@@ -124,11 +124,11 @@ class JsonDocument(JsonBaseDocument):
                 id=self.context.id.replace('.', '-'),
                 geometry=geometry.geo,
                 properties={
-                    "title": self.context.Title(),
-                    "description": self.context.Description(),
-                    "style": self._get_style(geometry.geo),
-                    "url": self.context.absolute_url(),
-                    "classes": classes,
+                    'title': self.context.Title(),
+                    'description': self.context.Description(),
+                    'style': self._get_style(geometry.geo),
+                    'url': self.context.absolute_url(),
+                    'classes': classes,
                 })]
         return geojson.dumps(geojson.FeatureCollection(json_result))
 
@@ -159,11 +159,11 @@ class JsonFolderDocument(JsonBaseDocument):
                             geometry=asShape(geom),
                             style=self._get_style(geom),
                             properties={
-                                "title": brain.Title,
-                                "description": brain.Description,
-                                "style": self._get_style(geom),
-                                "url": brain.getURL(),
-                                "classes": classes,
+                                'title': brain.Title(),
+                                'description': brain.Description(),
+                                'style': self._get_style(geom),
+                                'url': brain.getURL(),
+                                'classes': classes,
                             }))
         feature_collection = geojson.FeatureCollection(json_result)
         feature_collection.update({'title': self.context.title})

@@ -4,7 +4,8 @@ Changelog
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add plone.app.contenttypes comptability.
+  [bsuttor]
 
 
 0.3 (2016-09-06)
