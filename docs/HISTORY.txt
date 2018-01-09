@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4.1 (unreleased)
+0.4.1 (2018-01-09)
 ------------------
 
 - Improve way to get title and description for collection and folder json view.
