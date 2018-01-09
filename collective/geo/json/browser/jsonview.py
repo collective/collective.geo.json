@@ -153,14 +153,22 @@ class JsonFolderDocument(JsonBaseDocument):
                     else:
                         classes = ''
                     classes += brain.getPath().split('/')[-2].replace('.', '-')
+                    if isinstance(brain.Title, str):
+                        title = brain.Title
+                    else:
+                        title = brain.Title()
+                    if isinstance(brain.Description, str):
+                        desc = brain.Description
+                    else:
+                        desc = brain.Description()
                     json_result.append(
                         geojson.Feature(
                             id=brain.id.replace('.', '-'),
                             geometry=asShape(geom),
                             style=self._get_style(geom),
                             properties={
-                                'title': brain.Title(),
-                                'description': brain.Description(),
+                                'title': title,
+                                'description': desc,
                                 'style': self._get_style(geom),
                                 'url': brain.getURL(),
                                 'classes': classes,
