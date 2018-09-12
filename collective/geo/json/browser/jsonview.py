@@ -53,21 +53,35 @@ class JsonBaseDocument(BrowserView):
 
     def normalize_color(self, color):
         if color:
-            if color.startswith('#'):
-                color = color[1:]
-            tc = int(color, 16)
-            if len(color) == 3:
-                color = ''.join([b * 2 for b in color]) + '3c'
-            elif len(color) == 4:
-                color = ''.join([b * 2 for b in color])
-            elif len(color) == 6:
-                color = color + '3c'
-            elif len(color) == 8:
-                pass
-            else:
-                raise ValueError, 'input #%s is not in #RRGGBB[AA] format' % color
-            return color
+            if color.startswith('rgba'):
+                return self.normalize_rgba_color(color)
+            return self.normalize_hex_color(color)
         return 'AABBCCDD'
+
+    def normalize_rgba_color(self, color):
+        try:
+            color = ''.join(['{0:02X}'.format(int(c))
+                             for c in color[5:-1].split(',')[:-1]])
+            color = '{0}3c'.format(color)
+        except:
+            raise ValueError('input {0} is not a rgba color' % color)
+        return color
+
+    def normalize_hex_color(self, color):
+        if color.startswith('#'):
+            color = color[1:]
+        tc = int(color, 16)
+        if len(color) == 3:
+            color = ''.join([b * 2 for b in color]) + '3c'
+        elif len(color) == 4:
+            color = ''.join([b * 2 for b in color])
+        elif len(color) == 6:
+            color = color + '3c'
+        elif len(color) == 8:
+            pass
+        else:
+            raise ValueError, 'input #%s is not in #RRGGBB[AA] format' % color
+        return color
 
     def _get_style(self, geo_type):
         style = {}
